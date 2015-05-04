@@ -15,23 +15,27 @@ import sys
 
 HOME = os.getenv('HOME')
 
-parser = argparse.ArgumentParser(description='jumpdir')
-parser.add_argument('search_term', help='Directory name to search for.')
+def parse_sysargs(args):
+    parser = argparse.ArgumentParser(description='jumpdir')
+    parser.add_argument('search_term',
+                        help='Directory to search for (case insensitive).'
+                        )
+    return parser.parse_args(args)
 
 def main():
     """
-    Main entry point for jumpdir. Currently returns the first matching
-    directory.
+    Create a list of all directories within user's home path, then search
+    this list for a directory that matches the provided search_term.
+    Return the first matching directory.
     """
-    args = parser.parse_args()
-
-    dlist = DirectoryList(HOME)
+    args = parse_sysargs(sys.argv[1:])
     search_term = args.search_term
+
     pfinder = PathFinder(search_term)
+    dlist = DirectoryList(HOME)
     for d in dlist:
         if pfinder.check_path(d):
-            print(d)
-            break
+            return(d)
 
 if __name__ == '__main__':
     main()
