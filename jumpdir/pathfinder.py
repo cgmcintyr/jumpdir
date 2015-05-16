@@ -22,4 +22,4 @@ class PathFinder:
             idx -= 1
             if char == '/':
                 return path[idx + 1:]
- 
+

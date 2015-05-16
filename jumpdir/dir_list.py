@@ -24,9 +24,9 @@ class DirectoryList:
                 f = unicode(f)
             except NameError:
                 pass
-            
-            if f.startswith('.'): 
-                continue 
+
+            if f.startswith('.'):
+                continue
 
             fpath = os.path.join(root, f)
             if os.path.isdir(fpath):
@@ -36,4 +36,4 @@ class DirectoryList:
                     dirs.append(d)
 
         return dirs
- 
+
