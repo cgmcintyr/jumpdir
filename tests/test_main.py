@@ -9,26 +9,24 @@ from example_dtrees import example_home_dir
 
 class MainTest(unittest.TestCase):
 
-    def setUp(self):
-        self.base_path = os.getcwd()
+    @classmethod
+    def setUpClass(cls):
+        cls.base_path = os.getcwd()
         os.mkdir('Mock_Home')
-        self.mock_home_path = os.path.join(self.base_path, 'Mock_Home')
-        create_dtree(example_home_dir, self.mock_home_path)
+        cls.mock_home_path = os.path.join(cls.base_path, 'Mock_Home')
+        create_dtree(example_home_dir, cls.mock_home_path)
 
-    def tearDown(self):
-        shutil.rmtree(self.mock_home_path)
+    @classmethod
+    def tearDownClass(cls):
+        shutil.rmtree(cls.mock_home_path)
 
-    def test_takes_string_from_sysarg_and_returns_matching_directory(self):
+    def test_parse_sysarg_parses_search_term(self):
         args = jumpdir.main.parse_sysargs(['django'])
         search_term = args.search_term
+
         self.assertEqual('django', search_term)
 
-        pfinder = jumpdir.pathfinder.PathFinder(search_term)
-        dlist = jumpdir.dir_list.DirectoryList(self.mock_home_path)
-
-        self.assertIn(True, [pfinder.check_path(d) for d in dlist])
-
-    def test_with_empty_args(self):
+    def test_parse_sysargs_with_empty_args(self):
         with self.assertRaises(SystemExit) as cm:
             with capture_sys_output() as (stdout, stderr):
                 jumpdir.main.parse_sysargs([])
@@ -36,13 +34,19 @@ class MainTest(unittest.TestCase):
         exit_exception = cm.exception
         self.assertEqual(exit_exception.code, 2)
 
-    def test_with_multiple_args(self):
+    def test_parse_sysargs_with_multiple_args(self):
         with self.assertRaises(SystemExit) as cm:
             with capture_sys_output() as (stdout, stderr):
                 jumpdir.main.parse_sysargs(['one', 'two'])
 
         exit_exception = cm.exception
         self.assertEqual(exit_exception.code, 2)
+
+    def test_search_for_directory_name_containing_spaces(self):
+        pfinder = jumpdir.pathfinder.PathFinder('DAVID BOWIE')
+        dlist = jumpdir.dir_list.DirectoryList(self.mock_home_path)
+
+        self.assertIn(True, [pfinder.check_path(d) for d in dlist])
 
 if __name__ == '__main__':
     unittest.main()
