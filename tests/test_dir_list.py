@@ -28,6 +28,13 @@ class MainTest(unittest.TestCase):
         cls.test_path = os.path.join(cls.base_path, 'mock_dtree')
         create_dtree(simple_dtree, cls.test_path)
 
+        try:
+            # Python2
+            cls.assertCountEqual = cls.assertItemsEqual
+        except AttributeError:
+            # Python3
+            pass
+
     @classmethod
     def tearDownClass(cls):
         shutil.rmtree(cls.test_path)

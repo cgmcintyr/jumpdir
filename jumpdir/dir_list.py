@@ -5,24 +5,38 @@ import os
 
 class DirectoryList:
     """
-    Recursively creates and stores a flat list of all non-hidden directory paths 
-    under the provided root directory.
+    Recursivley create and stores list of paths to directories under given base directory. 
+    
+    Attributes:
+        base (str)  = top directory to work down from.
+        dirs (list) = flat list of paths to all non-hidden directores under base directory.
     """
 
-    def __init__(self, root):
-        self.root = root
-        self.dirs = self.list_builder(root)
+    def __init__(self, base):
+        self.base = base
+        self.dirs = self.list_builder(base)
 
     def __iter__(self):
         return iter(self.dirs)
 
-    def list_builder(self, root):
+    def list_builder(self, base_dir):
+        """
+        Recursively creates the list of paths to all directories under given directory.
+
+        Args:
+            base_dir: path of directory to look for subdirectories in.
+        
+        Returns:
+            flat list of paths to all non-hidden directories under base_dir. 
+        """
         dirs = []
 
-        for f in os.listdir(root):
+        for f in os.listdir(dir_path):
             try:
+                # Python2
                 f = unicode(f)
             except NameError:
+                # Python3
                 pass
 
             if f.startswith('.'):

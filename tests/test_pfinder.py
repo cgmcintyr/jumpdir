@@ -1,22 +1,22 @@
 import unittest
 
-from jumpdir.pathfinder import PathFinder
+from jumpdir.PathFinder import PathFinder
 
 from tools import capture_sys_output
 
 class MainTest(unittest.TestCase):
 
-    def test_intialise_pathfinder_with_search_term(self):
+    def test_intialise_PathFinder_with_search_term(self):
         pfinder = PathFinder('test')
         self.assertEqual(pfinder.search_term, 'test')
 
-    def test_exception_when_intialising_pathfinder_without_arguments(self):
+    def test_exception_when_intialising_PathFinder_without_arguments(self):
         self.assertRaises(TypeError, PathFinder)
 
-    def test_exception_when_intialising_pathfinder_with_multiple_arguments(self):
+    def test_exception_when_intialising_PathFinder_with_multiple_arguments(self):
         self.assertRaises(TypeError, PathFinder, 'arg', 'arg2')
 
-    def test_get_dir_name_retrieves_directory_name_from_given_path(self):
+    def test_get_dir_name_method_retrieves_directory_name_from_given_path(self):
         pfinder = PathFinder('test')
 
         test_path = "/home/chrsintyre/test"
