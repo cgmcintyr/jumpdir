@@ -8,13 +8,14 @@ class DirectoryList:
     Recursivley create and stores list of paths to directories under given base directory. 
     
     Attributes:
-        base (str)  = top directory to work down from.
-        dirs (list) = flat list of paths to all non-hidden directores under base directory.
+        base_dir (str)  = absolute path to top directory to work down from.
+        dirs (list)     = flat list of absolute paths to all non-hidden directores
+                          under the base directory.
     """
 
-    def __init__(self, base):
-        self.base = base
-        self.dirs = self.list_builder(base)
+    def __init__(self, base_dir):
+        self.base_dir = base_dir
+        self.dirs = self.list_builder(base_dir)
 
     def __iter__(self):
         return iter(self.dirs)
@@ -31,7 +32,7 @@ class DirectoryList:
         """
         dirs = []
 
-        for f in os.listdir(dir_path):
+        for f in os.listdir(base_dir):
             try:
                 # Python2
                 f = unicode(f)
@@ -42,7 +43,7 @@ class DirectoryList:
             if f.startswith('.'):
                 continue
 
-            fpath = os.path.join(root, f)
+            fpath = os.path.join(base_dir, f)
             if os.path.isdir(fpath):
                 dirs.append(fpath)
 

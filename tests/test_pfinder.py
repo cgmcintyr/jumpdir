@@ -1,6 +1,6 @@
 import unittest
 
-from jumpdir.PathFinder import PathFinder
+from jumpdir.pathfinder import PathFinder
 
 from tools import capture_sys_output
 

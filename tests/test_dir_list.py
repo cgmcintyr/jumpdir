@@ -39,15 +39,15 @@ class MainTest(unittest.TestCase):
     def tearDownClass(cls):
         shutil.rmtree(cls.test_path)
 
-    def test_DirectoryList_initialises_with_root_attribute_of_type_str(self):
+    def test_DirectoryList_initialises_with_base_dir_attribute_of_type_str(self):
         dlist = DirectoryList(self.test_path)
 
-        self.assertEqual(type(dlist.root), str)
+        self.assertEqual(type(dlist.base_dir), str)
 
-    def test_DirectoryList_initialises_with_correct_root_attribute(self):
+    def test_DirectoryList_initialises_with_correct_base_dir_attribute(self):
         dlist = DirectoryList(self.test_path)
 
-        self.assertEqual(dlist.root, self.test_path)
+        self.assertEqual(dlist.base_dir, self.test_path)
 
     def test_DirectoryList_initialises_with_dirs_attribute_of_type_list(self):
         dlist = DirectoryList(self.test_path)
