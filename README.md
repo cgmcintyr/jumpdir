@@ -1,15 +1,13 @@
 # Jumpdir
 
-A minimal command line utility for quickly jumping to different directories within your home directory. 
+A minimal command line utility for quickly jumping to different directories within your home directory.
 
 ## Installation
 
-At the moment 'setup.py install' is the only method of installaing the jumpdir package and script.
+Simply
 
 ```bash
-git clone https://github.com/chrsintyre/jumpdir.git
-cd jumpdir
-sudo python setup.py install 
+pip install jumpdir
 ```
 
 Then add the following to your .bashrc
@@ -25,13 +23,13 @@ function jd {
       echo "Jumpdir could not find a matching directory :("
   fi
 }
-```   
+```
 
 ## Useage
 
 Jumpdir is case insensitive and searches through your home folder for directories whose names directly match the provided search term. It will return the path to the first matching directory, so dealing with duplicate directories can be irksome.
 
-For example, assuming you have added the jd function to your .bashrc and your home directory looks as follows:
+For example, using the following example home directory:
 
 ```
 .
@@ -49,7 +47,7 @@ For example, assuming you have added the jd function to your .bashrc and your ho
         '-- duplicate testing
 ```
 
-Then using jumpdir would go as follows:
+Using jumpdir with the jd function works as follows:
 
 ```shell
 ~ $ jd devel
