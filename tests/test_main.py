@@ -20,24 +20,24 @@ class MainTest(unittest.TestCase):
     def tearDownClass(cls):
         shutil.rmtree(cls.mock_home_path)
 
-    def test_parse_sysarg_parses_search_term(self):
-        args = jumpdir.main.parse_sysargs(['django'])
+    def test_parse_args_parses_search_term(self):
+        args = jumpdir.main.parse_args(['django'])
         search_term = args.search_term
 
         self.assertEqual('django', search_term)
 
-    def test_parse_sysargs_with_empty_args(self):
+    def test_parse_args_with_empty_args(self):
         with self.assertRaises(SystemExit) as cm:
             with capture_sys_output() as (stdout, stderr):
-                jumpdir.main.parse_sysargs([])
+                jumpdir.main.parse_args([])
 
         exit_exception = cm.exception
         self.assertEqual(exit_exception.code, 2)
 
-    def test_parse_sysargs_with_multiple_args(self):
+    def test_parse_args_with_multiple_args(self):
         with self.assertRaises(SystemExit) as cm:
             with capture_sys_output() as (stdout, stderr):
-                jumpdir.main.parse_sysargs(['one', 'two'])
+                jumpdir.main.parse_args(['one', 'two'])
 
         exit_exception = cm.exception
         self.assertEqual(exit_exception.code, 2)

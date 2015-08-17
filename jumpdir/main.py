@@ -10,12 +10,12 @@ import sys
 
 HOME = os.getenv('HOME')
 
-def parse_sysargs(args):
+def parse_args(args):
     """
-    Build an argparser and use it to parse given args.
+    Parse list/tuple of arguments with argparse module. 
 
     Args:
-        args (list OR tuple): arguments to be parsed.
+        args (list/tuple): arguments to be parsed.
     
     Returns:
         Namespace of parsed args.
@@ -34,7 +34,7 @@ def main():
     Returns:
         The path to the first matching directory, or None if no match is found.
     """
-    args = parse_sysargs(sys.argv[1:])
+    args = parse_args(sys.argv[1:])
     search_term = args.search_term
 
     pfinder = PathFinder(search_term)

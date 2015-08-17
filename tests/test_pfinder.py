@@ -16,12 +16,6 @@ class MainTest(unittest.TestCase):
     def test_exception_when_intialising_PathFinder_with_multiple_arguments(self):
         self.assertRaises(TypeError, PathFinder, 'arg', 'arg2')
 
-    def test_get_dir_name_method_retrieves_directory_name_from_given_path(self):
-        pfinder = PathFinder('test')
-
-        test_path = "/home/chrsintyre/test"
-        self.assertEqual('test', pfinder.get_dir_name(test_path))
-
     def test_check_path_method_returns_true_if_path_matches_search_term(self):
         search_term = 'test'
         test_path = "/home/chrsintyre/test"

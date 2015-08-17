@@ -1,6 +1,8 @@
 from __future__ import (absolute_import, division,
                         print_function, unicode_literals)
 
+import os
+
 class PathFinder:
     """
     Used to analyse paths for a match with initialised search term.
@@ -22,19 +24,9 @@ class PathFinder:
         Returns: 
             True if there is a direct match (ignoring case), False otherwise.
         """
-        dir_name = self.get_dir_name(path)
+        dir_name = os.path.basename(os.path.normpath(path))
         if dir_name.lower() == self.search_term.lower():
             return True
         else:
             return False
-
-    def get_dir_name(self, path):
-        """
-        Retrieve the name of the file/directory a path points to.
-        """
-        idx = 0
-        for char in path[::-1]:
-            idx -= 1
-            if char == '/':
-                return path[idx + 1:]
 
