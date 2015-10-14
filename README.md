@@ -58,9 +58,3 @@ Jumpdir could not find a matching directory :(
 ~/Devel/django $ jd python
 ~/Devel/python $ # jumpdir will choose the first directory it matches
 ```
-
-
-
-      
-      
-```
