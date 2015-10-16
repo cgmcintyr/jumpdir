@@ -10,13 +10,14 @@ import sys
 
 HOME = os.getenv('HOME')
 
+
 def parse_args(args):
     """
-    Parse list/tuple of arguments with argparse module. 
+    Parse list/tuple of arguments with argparse module.
 
     Args:
         args (list/tuple): arguments to be parsed.
-    
+
     Returns:
         Namespace of parsed args.
     """
@@ -26,11 +27,12 @@ def parse_args(args):
                         )
     return parser.parse_args(args)
 
+
 def main():
     """
     Retrieve user's search term from sys.args, create a list of all directories within
     user's home path, then compare each directory name against the search_term.
-    
+
     Returns:
         The path to the first matching directory, or None if no match is found.
     """
@@ -45,4 +47,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

@@ -3,10 +3,11 @@ from __future__ import (absolute_import, division,
 
 import os
 
+
 class DirectoryList:
     """
-    Recursivley create and stores list of paths to directories under given base directory. 
-    
+    Recursivley create and stores list of paths to directories under given base directory.
+
     Attributes:
         base_dir (str)  = absolute path to top directory to work down from.
         dirs (list)     = flat list of absolute paths to all non-hidden directores
@@ -26,9 +27,9 @@ class DirectoryList:
 
         Args:
             base_dir: path of directory to look for subdirectories in.
-        
+
         Returns:
-            flat list of paths to all non-hidden directories under base_dir. 
+            flat list of paths to all non-hidden directories under base_dir.
         """
         dirs = []
 
@@ -51,4 +52,3 @@ class DirectoryList:
                     dirs.append(d)
 
         return dirs
-
