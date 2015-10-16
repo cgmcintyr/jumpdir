@@ -23,8 +23,12 @@ def parse_args(args):
     """
     parser = argparse.ArgumentParser(description='jumpdir')
     parser.add_argument('search_term',
-                        help='Directory to search for (case insensitive).'
+                        help='directory to search for (case insensitive).',
                         )
+    parser.add_argument('-b', '--bookmark',
+                        help='bookmark a path to a directory under a given string',
+                        )
+
     return parser.parse_args(args)
 
 

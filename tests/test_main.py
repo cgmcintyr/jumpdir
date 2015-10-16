@@ -26,6 +26,12 @@ class MainTest(unittest.TestCase):
 
         self.assertEqual('django', search_term)
 
+    def test_parse_args_parses_bookmark(self):
+        args = jumpdir.main.parse_args('lol --bookmark /this/is/a/test/path'.split())
+        bookmark = args.bookmark
+
+        self.assertEqual('/this/is/a/test/path', bookmark)
+
     def test_parse_args_with_empty_args(self):
         with self.assertRaises(SystemExit) as cm:
             with capture_sys_output() as (stdout, stderr):
