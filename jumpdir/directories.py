@@ -50,3 +50,13 @@ class Directories:
             if os.path.isdir(fpath):
                 self.dirs[f].append(fpath)
                 self.dict_builder(fpath)
+
+    def shallowest_path_to(self, dname):
+        """
+        Returns the shallowest path from corresponding paths in
+        object's dirs dictionary
+
+        Args:
+            dname(str) : name of directory to look for in dirs
+        """
+        return sorted(self.dirs[dname], key=len)[0]

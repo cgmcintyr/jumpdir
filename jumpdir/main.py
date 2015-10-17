@@ -78,7 +78,7 @@ def main():
     for dname in ddict:
         if pfinder.check_match(dname):
             # Return the shallowest matching path
-            return sorted(ddict[dname], key=len)[0]
+            return ddict.shallowest_path_to(dname)
 
 if __name__ == '__main__':
     main()
