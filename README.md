@@ -14,7 +14,7 @@ Then add the following to your .bashrc
 
 ```bash
 function jd {   
-    if [[ "$@" == *-b* ]] || [[ "$@" == "--bookmark" ]]; then
+    if [[ "$@" == *-b* ]] || [[ "$@" == *--bookmark* ]]; then
         jumpdir $@
         return 0
     fi
