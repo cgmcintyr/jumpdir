@@ -21,6 +21,9 @@ class Directories:
         self.dirs = defaultdict(list)
         self.dict_builder(base_dir)
 
+    def __getitem__(self, key):
+        return self.dirs[key]
+
     def __iter__(self):
         return iter(self.dirs)
 
@@ -47,4 +50,3 @@ class Directories:
             if os.path.isdir(fpath):
                 self.dirs[f].append(fpath)
                 self.dict_builder(fpath)
-

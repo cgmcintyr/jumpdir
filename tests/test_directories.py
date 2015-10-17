@@ -84,5 +84,9 @@ class MainTest(unittest.TestCase):
 
         self.assertNotIn('.hidden', dirs.keys())
 
+    def test_Directories_instances_are_subscriptable(self):
+        ddict = Directories(self.test_path)
+        self.assertEqual(ddict['example'], ddict.dirs['example'])
+
 if __name__ == '__main__':
     unittest.main()
