@@ -70,6 +70,9 @@ def main():
         # Bookmark path under search_term and exit
         create_bookmark(args.search_term, args.bookmark)
 
+    if args.search_term == HOME:
+        return HOME
+
     search_term = args.search_term
     pfinder = PathFinder(search_term)
 
@@ -87,3 +90,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    z
