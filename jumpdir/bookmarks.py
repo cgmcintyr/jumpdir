@@ -1,5 +1,5 @@
 import json
-
+import os
 
 class Bookmarks:
     """
@@ -43,8 +43,13 @@ class Bookmarks:
         """
         if jfile is None:
             jfile = self.jfile
-        with open(jfile, 'r') as jfile:
-            self.bm_dict = json.loads(jfile.read())
+
+        if os.path.exists(jfile):
+            with open(jfile, 'r') as jfile:
+                self.bm_dict = json.loads(jfile.read())
+        else:
+            with open(jfile, 'w') as jfile:
+                self.bm_dict = {}
 
     def save_bookmarks(self, jfile=None):
         """

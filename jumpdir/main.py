@@ -3,13 +3,14 @@ from __future__ import (absolute_import, division,
 
 from jumpdir.dir_list import DirectoryList
 from jumpdir.pathfinder import PathFinder
+from jumpdir.bookmarks import Bookmarks
 
 import argparse
 import os
 import sys
 
 HOME = os.getenv('HOME')
-
+BOOKMARKS = os.path.join(HOME, '.jdbookmarks.json')
 
 def parse_args(args):
     """
@@ -47,6 +48,11 @@ def create_bookmark(name, path):
     elif name == '..':
         name = os.path.dirname(os.getcwd())
 
+    bm = Bookmarks(BOOKMARKS)
+    bm.add_bookmark(name, path)
+    bm.save_bookmarks()
+    print("Bookmarked path '{0}' under '{1}'".format(path, name))
+    sys.exit()
 
 def main():
     """
