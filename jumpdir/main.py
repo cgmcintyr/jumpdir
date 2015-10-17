@@ -45,10 +45,8 @@ def create_bookmark(name, path):
         None
     """
     if path == '.':
-        print("CURRENT DIR")
         path = os.getcwd()
     elif path == '..':
-        print("PARENT DIR")
         path = os.path.dirname(os.getcwd())
 
     bm = Bookmarks(BOOKMARKS)
@@ -69,11 +67,18 @@ def main():
     args = parse_args(sys.argv[1:])
 
     if args.bookmark is not None:
+        # Bookmark path under search_term and exit
         create_bookmark(args.search_term, args.bookmark)
 
     search_term = args.search_term
-
     pfinder = PathFinder(search_term)
+
+    # Check if search_term is a bookmark
+    bm = Bookmarks(BOOKMARKS)
+    for dname in bm:
+        if pfinder.check_match(dname):
+            return bm[dname]
+
     ddict = Directories(HOME)
     for dname in ddict:
         if pfinder.check_match(dname):

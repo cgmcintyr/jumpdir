@@ -13,6 +13,12 @@ class Bookmarks:
         self.jfile = fname
         self.load_bookmarks()
 
+    def __iter__(self):
+        return iter(self.bm_dict)
+
+    def __getitem__(self, key):
+        return self.bm_dict[key]
+
     def add_bookmark(self, name, path):
         """
         Add a name:path bookmark to object's bookmark dictionary
