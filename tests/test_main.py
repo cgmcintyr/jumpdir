@@ -7,6 +7,7 @@ import jumpdir
 from tools import capture_sys_output, create_dtree
 from example_dtrees import example_home_dir
 
+
 class MainTest(unittest.TestCase):
 
     @classmethod
@@ -26,11 +27,15 @@ class MainTest(unittest.TestCase):
 
         self.assertEqual('django', search_term)
 
-    def test_parse_args_parses_bookmark(self):
-        args = jumpdir.main.parse_args('lol --bookmark /this/is/a/test/path'.split())
+    def test_parse_args_parses_search_term_and_bookmark(self):
+        args = jumpdir.main.parse_args(
+            'lol --bookmark /this/is/a/test/path'.split())
+
         bookmark = args.bookmark
+        search_term = args.search_term
 
         self.assertEqual('/this/is/a/test/path', bookmark)
+        self.assertEqual('lol', search_term)
 
     def test_parse_args_with_empty_args(self):
         with self.assertRaises(SystemExit) as cm:

@@ -32,6 +32,22 @@ def parse_args(args):
     return parser.parse_args(args)
 
 
+def create_bookmark(name, path):
+    """
+    Appends a bookmark to jumpdir's yaml file
+
+    Args:
+        name: name to save bookmark under
+        path: path that bookmark points to
+    Returns:
+        None
+    """
+    if name == '.':
+        name = os.getcwd()
+    elif name == '..':
+        name = os.path.dirname(os.getcwd())
+
+
 def main():
     """
     Retrieve user's search term from sys.args, create a list of all directories within
@@ -41,6 +57,10 @@ def main():
         The path to the first matching directory, or None if no match is found.
     """
     args = parse_args(sys.argv[1:])
+
+    if args.bookmark is not None:
+        create_bookmark(args.search_term, args.bookmark)
+
     search_term = args.search_term
 
     pfinder = PathFinder(search_term)
