@@ -3,8 +3,10 @@ from __future__ import (absolute_import, division,
 
 import os
 
+from collections import defaultdict
 
-class DirectoryList:
+
+class Directories:
     """
     Recursivley create and stores list of paths to directories under given base directory.
 
@@ -16,23 +18,20 @@ class DirectoryList:
 
     def __init__(self, base_dir):
         self.base_dir = base_dir
-        self.dirs = self.list_builder(base_dir)
+        self.dirs = defaultdict(list)
+        self.dict_builder(base_dir)
 
     def __iter__(self):
         return iter(self.dirs)
 
-    def list_builder(self, base_dir):
+    def dict_builder(self, base_dir):
         """
-        Recursively creates the list of paths to all directories under given directory.
+        Recursively walks through base_dir and creates dictionary of all
+        non-hidden directory names and their corresponding paths
 
         Args:
-            base_dir: path of directory to look for subdirectories in.
-
-        Returns:
-            flat list of paths to all non-hidden directories under base_dir.
+            base_dir (str): path of directory to look for subdirectories in.
         """
-        dirs = []
-
         for f in os.listdir(base_dir):
             try:
                 # Python2
@@ -46,9 +45,5 @@ class DirectoryList:
 
             fpath = os.path.join(base_dir, f)
             if os.path.isdir(fpath):
-                dirs.append(fpath)
-
-                for d in self.list_builder(fpath):
-                    dirs.append(d)
-
-        return dirs
+                self.dirs[f].append(fpath)
+                self.dict_builder(fpath)
