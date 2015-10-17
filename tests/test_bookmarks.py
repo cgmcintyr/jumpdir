@@ -32,6 +32,11 @@ class MainTest(unittest.TestCase):
 
         self.assertEqual(self.bm.bm_dict, test_json_dict)
 
+    def test_load_bookmarks_works_with_missing_file(self):
+        self.bm = Bookmarks("thisisnotafile.txt")
+
+        self.assertEqual(self.bm.bm_dict, {})
+
     def test_jfile_data_is_loaded_into_bm_dict(self):
         with open(self.test_jfile, "r") as jfile:
             jdata = json.loads(jfile.read())
