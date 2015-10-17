@@ -43,16 +43,19 @@ def create_bookmark(name, path):
     Returns:
         None
     """
-    if name == '.':
-        name = os.getcwd()
-    elif name == '..':
-        name = os.path.dirname(os.getcwd())
+    if path == '.':
+        print("CURRENT DIR")
+        path = os.getcwd()
+    elif path == '..':
+        print("PARENT DIR")
+        path = os.path.dirname(os.getcwd())
 
     bm = Bookmarks(BOOKMARKS)
     bm.add_bookmark(name, path)
     bm.save_bookmarks()
     print("Bookmarked path '{0}' under '{1}'".format(path, name))
     sys.exit()
+
 
 def main():
     """
