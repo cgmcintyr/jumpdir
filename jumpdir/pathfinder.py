@@ -15,18 +15,17 @@ class PathFinder:
     def __init__(self, search_term):
         self.search_term = search_term
 
-    def check_path(self, path):
+    def check_match(self, dname):
         """
         Retrieve the file/directory name and compare it with the search term.
 
         Args:
-            path: path to directory/file to be checked.
+            dname: name of directory/file to be checked.
 
         Returns:
-            True if there is a direct match (ignoring case), False otherwise.
+            True if there is a direct match (case insensitive), False otherwise.
         """
-        dir_name = os.path.basename(os.path.normpath(path))
-        if dir_name.lower() == self.search_term.lower():
+        if dname.lower() == self.search_term.lower():
             return True
         else:
             return False

@@ -57,7 +57,7 @@ class MainTest(unittest.TestCase):
         pfinder = jumpdir.pathfinder.PathFinder('DAVID BOWIE')
         dlist = jumpdir.directories.Directories(self.mock_home_path)
 
-        self.assertIn(True, [pfinder.check_path(d) for d in dlist])
+        self.assertIn(True, [pfinder.check_match(d) for d in dlist])
 
 if __name__ == '__main__':
     unittest.main()

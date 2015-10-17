@@ -12,6 +12,7 @@ import sys
 HOME = os.getenv('HOME')
 BOOKMARKS = os.path.join(HOME, '.jdbookmarks.json')
 
+
 def parse_args(args):
     """
     Parse list/tuple of arguments with argparse module.
@@ -73,10 +74,11 @@ def main():
     search_term = args.search_term
 
     pfinder = PathFinder(search_term)
-    dlist = Directories(HOME)
-    for d in dlist:
-        if pfinder.check_path(d):
-            return d
+    ddict = Directories(HOME)
+    for dname in ddict:
+        if pfinder.check_match(dname):
+            # Return the shallowest matching path
+            return sorted(ddict[dname], key=len)[0]
 
 if __name__ == '__main__':
     main()
