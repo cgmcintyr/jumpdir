@@ -1,7 +1,7 @@
 from __future__ import (absolute_import, division,
                         print_function, unicode_literals)
 
-from jumpdir.dir_list import DirectoryList
+from jumpdir.directories import Directories
 from jumpdir.pathfinder import PathFinder
 from jumpdir.bookmarks import Bookmarks
 
@@ -73,7 +73,7 @@ def main():
     search_term = args.search_term
 
     pfinder = PathFinder(search_term)
-    dlist = DirectoryList(HOME)
+    dlist = Directories(HOME)
     for d in dlist:
         if pfinder.check_path(d):
             return d
