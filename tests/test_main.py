@@ -55,7 +55,7 @@ class MainTest(unittest.TestCase):
 
     def test_search_for_directory_name_containing_spaces(self):
         pfinder = jumpdir.pathfinder.PathFinder('DAVID BOWIE')
-        dlist = jumpdir.dir_list.DirectoryList(self.mock_home_path)
+        dlist = jumpdir.directories.Directories(self.mock_home_path)
 
         self.assertIn(True, [pfinder.check_path(d) for d in dlist])
 

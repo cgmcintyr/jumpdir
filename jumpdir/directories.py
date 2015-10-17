@@ -47,3 +47,4 @@ class Directories:
             if os.path.isdir(fpath):
                 self.dirs[f].append(fpath)
                 self.dict_builder(fpath)
+

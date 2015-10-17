@@ -2,9 +2,11 @@ import os
 import unittest
 import shutil
 
+from collections import defaultdict
+
 from jumpdir.directories import Directories
 
-from tools import capture_sys_output, create_dtree
+from tools import create_dtree
 
 simple_dtree = {
     'first': {
@@ -15,9 +17,11 @@ simple_dtree = {
         'bootboot': {
             'jam_recipes': None,
             },
+        'example': None,
         },
     '.hidden': None,
 }
+
 
 class MainTest(unittest.TestCase):
 
@@ -40,40 +44,45 @@ class MainTest(unittest.TestCase):
         shutil.rmtree(cls.test_path)
 
     def test_Directories_initialises_with_base_dir_attribute_of_type_str(self):
-        dlist = Directories(self.test_path)
+        ddict = Directories(self.test_path)
 
-        self.assertEqual(type(dlist.base_dir), str)
+        self.assertEqual(type(ddict.base_dir), str)
 
     def test_Directories_initialises_with_correct_base_dir_attribute(self):
-        dlist = Directories(self.test_path)
+        ddict = Directories(self.test_path)
 
-        self.assertEqual(dlist.base_dir, self.test_path)
+        self.assertEqual(ddict.base_dir, self.test_path)
 
     def test_Directories_initialises_with_dirs_attribute_of_type_list(self):
-        dlist = Directories(self.test_path)
-
-        self.assertEqual(type(dlist.dirs), list)
+        ddict = Directories(self.test_path)
+        self.assertEqual(type(ddict.dirs), defaultdict)
 
     def test_Directories_is_iterable(self):
-        dlist = Directories(self.test_path)
+        ddict = Directories(self.test_path)
 
-        self.assertCountEqual(iter(dlist), dlist.dirs)
+        self.assertCountEqual(iter(ddict), ddict.dirs.keys())
 
-    def test_list_builder_method_returns_list_of_correct_length(self):
-        dirs = Directories(self.test_path).list_builder(self.test_path)
+    def test_dict_builder_method_returns_dict_of_correct_length(self):
+        dirs = Directories(self.test_path).dirs
 
         self.assertEqual(len(dirs), 6)
 
-    def test_list_builder_recursively_creates_a_list_of_directory_names(self):
-        dirs = Directories(self.test_path).list_builder(self.test_path)
+    def test_dict_builder_stores_directories_with_matching_names_under_same_key(self):
+        dirs = Directories(self.test_path).dirs
 
-        self.assertIn(os.path.join(self.test_path, 'first', 'example'), dirs)
-        self.assertIn(os.path.join(self.test_path, 'second'), dirs)
+        self.assertEqual(len(dirs['example']), 2)
 
-    def test_list_builder_ignores_directories_beginning_with_a_period(self):
-        dirs = Directories(self.test_path).list_builder(self.test_path)
+    def test_dict_builder_stores_paths(self):
+        dirs = Directories(self.test_path).dirs
 
-        self.assertNotIn(os.path.join(self.test_path, '.hidden'), dirs)
+        self.assertIn(
+            os.path.join(self.test_path, 'first', 'example'),
+            dirs['example'])
+
+    def test_dict_builder_ignores_directories_beginning_with_a_period(self):
+        dirs = Directories(self.test_path).dirs
+
+        self.assertNotIn('.hidden', dirs.keys())
 
 if __name__ == '__main__':
     unittest.main()
