@@ -24,17 +24,33 @@ def parse_args(args):
         Namespace of parsed args.
     """
     parser = argparse.ArgumentParser(description='jumpdir')
-    parser.add_argument('search_term',
-                        help='directory to search for (case insensitive).',
-                        )
-    parser.add_argument('-b', '--bookmark',
-                        help='bookmark a path to a directory under a given string',
-                        )
+    subparsers = parser.add_subparsers(help='sub-command help', dest='commands')
+
+
+    parser_search = subparsers.add_parser('search',
+                                          help='search home directory for a directory matching given search term'
+                                          )
+    parser_search.add_argument('search_term', help='directory name to search for (case insensitive).',)
+    parser_search.set_defaults(which='search')
+
+
+    parser_add = subparsers.add_parser('add', help='add bookmark')
+    parser_add.add_argument('name', help='name of bookmark to add')
+    parser_add.add_argument('-p', '--path', default=os.getcwd(),
+                            help="define path that bookmark points to"
+                           )
+
+    parser_delete = subparsers.add_parser('delete', help='delete bookmark')
+    parser_delete.add_argument('name',
+                               help='name of bookmark to remove'
+                              )
+
+    parser_list = subparsers.add_parser('list', help='list saved bookmarks')
 
     return parser.parse_args(args)
 
 
-def create_bookmark(name, path):
+def create_bookmark(name):
     """
     Appends a bookmark to jumpdir's yaml file
 
@@ -44,15 +60,26 @@ def create_bookmark(name, path):
     Returns:
         None
     """
-    if path == '.':
-        path = os.getcwd()
-    elif path == '..':
-        path = os.path.dirname(os.getcwd())
-
     bm = Bookmarks(BOOKMARKS)
-    bm.add_bookmark(name, path)
+    bm.add_bookmark(name, os.getcwd())
     bm.save_bookmarks()
-    print("Bookmarked path '{0}' under '{1}'".format(path, name))
+    print("Bookmarked path '{0}' under '{1}'".format(os.getcwd(), name))
+    sys.exit()
+
+
+def delete_bookmark(name):
+    bm = Bookmarks(BOOKMARKS)
+    bm.del_bookmark(name)
+    bm.save_bookmarks()
+    print("Removed bookmark '{0}'".format(name))
+    sys.exit()
+
+
+def list_bookmarks():
+    bm = Bookmarks(BOOKMARKS)
+    print("Jumpdir Bookmarks:")
+    for name in bm:
+        print("\t\033[92m{0}\033[0m : {1}".format(name, bm[name]))
     sys.exit()
 
 
@@ -66,9 +93,14 @@ def main():
     """
     args = parse_args(sys.argv[1:])
 
-    if args.bookmark is not None:
-        # Bookmark path under search_term and exit
-        create_bookmark(args.search_term, args.bookmark)
+    if args.commands == 'add':
+        create_bookmark(args.name)
+    elif args.commands == 'delete':
+        delete_bookmark(args.name)
+    elif args.commands == 'list':
+        list_bookmarks()
+    elif args.commands == 'search':
+        pass
 
     if args.search_term == HOME:
         return HOME
@@ -90,4 +122,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    z
