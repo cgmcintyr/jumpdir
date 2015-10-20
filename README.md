@@ -13,17 +13,18 @@ pip install jumpdir
 Then add the following to your .bashrc
 
 ```bash
-function jd {   
-    if [[ "$@" == *-b* ]] || [[ "$@" == *--bookmark* ]]; then
-        jumpdir $@
+function jd {
+    if [ "${1}" == "add" ] || [ "${1}" == *del* ] || [ "${1}" == "list" ]; then
+        jumpdir "$@"
         return 0
-    fi
-
-    TARGET="$(jumpdir $@)"
-    if [ $TARGET != "None" ]; then
-        cd $TARGET
     else
-        echo "Jumpdir could not find a matching directory :("
+        TARGET="$(jumpdir search $@)"
+        if [ $TARGET != "None" ]; then
+            cd $TARGET
+        else
+            echo "Jumpdir could not find a matching directory :("
+        fi
+        return 0
     fi
 }
 ```
