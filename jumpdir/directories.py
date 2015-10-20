@@ -2,22 +2,14 @@ from __future__ import (absolute_import, division,
                         print_function, unicode_literals)
 
 import os
-
 from collections import defaultdict
 
 
 class Directories:
-    """
-    Recursivley create and stores list of paths to directories under given base directory.
-
-    Attributes:
-        base_dir (str)  = absolute path to top directory to work down from.
-        dirs (list)     = flat list of absolute paths to all non-hidden directores
-                          under the base directory.
-    """
+    "Recursivley creates and stores a dict of directory names and a list of corresponding paths"
 
     def __init__(self, base_dir):
-        self.base_dir = base_dir
+        self.base_dir = base_dir # Top level directory to start from
         self.dirs = defaultdict(list)
         self.dict_builder(base_dir)
 
@@ -28,13 +20,7 @@ class Directories:
         return iter(self.dirs)
 
     def dict_builder(self, base_dir):
-        """
-        Recursively walks through base_dir and creates dictionary of all
-        non-hidden directory names and their corresponding paths
-
-        Args:
-            base_dir (str): path of directory to look for subdirectories in.
-        """
+        "Walks through base_dir and populates dirs defaultdict"
         for f in os.listdir(base_dir):
             try:
                 # Python2
@@ -52,11 +38,5 @@ class Directories:
                 self.dict_builder(fpath)
 
     def shallowest_path_to(self, dname):
-        """
-        Returns the shallowest path from corresponding paths in
-        object's dirs dictionary
-
-        Args:
-            dname(str) : name of directory to look for in dirs
-        """
+        "Returns the shallowest path from corresponding paths in dirs dictionary"
         return sorted(self.dirs[dname], key=len)[0]
