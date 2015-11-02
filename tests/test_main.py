@@ -36,7 +36,7 @@ class MainTest(unittest.TestCase):
     def test_parse_args_parses_add_parses_name_and_path(self):
         args = jumpdir.main.parse_args(['add', 'django', '-p', '/test/path'])
         self.assertEqual('django', args.name)
-        self.assertEqual('/test/path', )
+        self.assertEqual('/test/path', args.path)
 
     def test_parse_args_parses_delete_to_commands(self):
         args = jumpdir.main.parse_args(['delete', 'django'])
