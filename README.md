@@ -14,17 +14,12 @@ Then add the following to your .bashrc
 
 ```bash
 function jd {
-    if [ "${1}" == "add" ] || [ "${1}" == *del* ] || [ "${1}" == "list" ]; then
-        jumpdir "$@"
-        return 0
+    TARGET="$(jumpdir search $@)"
+
+    if [ $TARGET != "None" ]; then
+        cd $TARGET
     else
-        TARGET="$(jumpdir search $@)"
-        if [ $TARGET != "None" ]; then
-            cd $TARGET
-        else
-            echo "Jumpdir could not find a matching directory :("
-        fi
-        return 0
+        echo "Jumpdir could not find a matching directory :("
     fi
 }
 ```
@@ -61,4 +56,23 @@ Using jumpdir with the jd function works as follows:
 Jumpdir could not find a matching directory :(
 ~/Devel/django $ jd python
 ~/Devel/python $ # jumpdir will choose the first directory it matches
+```
+
+To edit or view bookmarks use the jumpdir command
+
+```
+~ $ jumpdir add bookmarkName -p ~/Devel/python
+Bookmarked path '/home/chrsintyre/Devel/python' under 'bookmarkName'
+~ $ jd bookmarkName
+~/Devel/python $ jd downloads
+~/Downloads $ jumpdir add bookmarkName # This will replace the first bookmark
+Bookmarked path '/home/chrsintyre/Downloads' under 'bookmarkName'
+~/Downloads $ jumpdir list
+Jumpdir Bookmarks:
+    bookmarkName : /home/chrsintyre/Downloads
+~/Downloads $ jumpdir delete bookmarkName
+Deleted bookmark 'bookmarkName
+~/Downloads $ jumpdir list
+No bookmarks saved
+~/Downloads $
 ```

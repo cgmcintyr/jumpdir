@@ -23,5 +23,5 @@ setup(
     keywords='commandline navigation',
 
     packages=['jumpdir'],
-    scripts=['scripts/jumpdir'],
+    scripts=['scripts/jumpdir', 'scripts/jumpdir-search'],
 )

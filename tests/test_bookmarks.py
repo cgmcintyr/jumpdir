@@ -49,8 +49,8 @@ class MainTest(unittest.TestCase):
         self.assertNotIn(1, self.bm.bm_dict.keys())
 
     def test_add_bookmark_inserts_bookmark_into_bm_dict(self):
-        self.bm.add_bookmark(4, "tttt")
-        self.assertIn((4, "tttt"), self.bm.bm_dict.items())
+        self.bm.add_bookmark("tttt", "/test/path")
+        self.assertIn(("tttt", "/test/path"), self.bm.bm_dict.items())
 
     def test_save_bookmarks_writes_bm_dict_as_json_to_file(self):
         self.bm.bm_dict = {"first": "a", "second": "b", "third": "c"}

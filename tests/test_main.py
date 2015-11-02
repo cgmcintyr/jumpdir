@@ -21,21 +21,30 @@ class MainTest(unittest.TestCase):
     def tearDownClass(cls):
         shutil.rmtree(cls.mock_home_path)
 
+    def test_parse_args_parses_search_to_commands(self):
+        args = jumpdir.main.parse_args(['search', 'django'])
+        self.assertEqual('search', args.commands)
+
     def test_parse_args_parses_search_term(self):
         args = jumpdir.main.parse_args(['search', 'django'])
-        name = args.search_term
+        self.assertEqual('django', args.search_term)
 
-        self.assertEqual('django', name)
+    def test_parse_args_parses_add_to_commands(self):
+        args = jumpdir.main.parse_args(['add', 'django'])
+        self.assertEqual('add', args.commands)
 
-    def test_parse_args_parses_search_term_and_bookmark(self):
-        args = jumpdir.main.parse_args(
-            'lol --bookmark /this/is/a/test/path'.split())
+    def test_parse_args_parses_add_parses_name_and_path(self):
+        args = jumpdir.main.parse_args(['add', 'django', '-p', '/test/path'])
+        self.assertEqual('django', args.name)
+        self.assertEqual('/test/path', )
 
-        bookmark = args.bookmark
-        search_term = args.search_term
+    def test_parse_args_parses_delete_to_commands(self):
+        args = jumpdir.main.parse_args(['delete', 'django'])
+        self.assertEqual('delete', args.commands)
 
-        self.assertEqual('/this/is/a/test/path', bookmark)
-        self.assertEqual('lol', search_term)
+    def test_parse_args_parses_list_to_commands(self):
+        args = jumpdir.main.parse_args(['list'])
+        self.assertEqual('list', args.commands)
 
     def test_main_with_no__args(self):
         self.assertRaises(ValueError, jumpdir.main.main, argv=[])

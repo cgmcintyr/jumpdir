@@ -39,7 +39,7 @@ def parse_args(args):
                                )
 
     # jumpdir list ...
-    parser_list = subparsers.add_parser('list', help='list saved bookmarks')
+    subparsers.add_parser('list', help='list saved bookmarks')
 
     return parser.parse_args(args)
 
@@ -52,11 +52,14 @@ def main(argv=sys.argv[1:]):
     if not args.commands:
         raise ValueError("jumpdir: error: no command given")
     elif args.commands == 'add':
-        bm.add_bookmark(args.name)
+        bm.add_bookmark(args.name, args.path)
+        return
     elif args.commands == 'delete':
         bm.del_bookmark(args.name)
+        return
     elif args.commands == 'list':
         bm.list_bookmarks()
+        return
     elif args.commands == 'search':
         pass
 
@@ -76,6 +79,7 @@ def main(argv=sys.argv[1:]):
     for dname in ddict:
         if pfinder.check_match(dname):
             return ddict.shallowest_path_to(dname)
+
 
 if __name__ == '__main__':
     main()
