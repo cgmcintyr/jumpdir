@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
    
    installation
+   license
    source
 
 Indices and tables
