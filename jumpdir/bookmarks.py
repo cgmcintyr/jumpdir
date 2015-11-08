@@ -9,14 +9,15 @@ class Bookmarks:
 
         :param str jfile: path to json file containing bookmark data
         :ivar str  jfile: copy of jfile paramater value
-        :ivar dict bm_dict: {str name: str path} dictionary of bookmarks in jfile
+        :ivar dict bm_dict: *{str name: str path}* dictionary of bookmarks in jfile
 
-    -  note::
+    -  Notes
         * The keys of the bm_dict of a Bookmarks instance can be iterated over.
         * The value of an item in the bm_dict can be retrieved using ``self[key]``.
         * If using any of the above to manipulate the dictionary, changes are not
           saved to the bookmark jfile until ``self.save_bookmarks()`` is called.
     """
+
     def __init__(self, jfile):
         self.jfile = jfile
         self.bm_dict = {}

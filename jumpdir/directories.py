@@ -14,7 +14,7 @@ class Directories:
     - **parameters** and  **instance variables**::
 
         :param str base_dir : path to root directory
-        :ivar defaultdict dirs: {str directory name: list paths} dictionary
+        :ivar defaultdict dirs: *{str directory name: list paths}* dictionary
             of directory names and corresponding paths
     """
 

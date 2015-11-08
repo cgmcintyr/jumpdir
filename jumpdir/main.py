@@ -14,7 +14,12 @@ BOOKMARKS = os.path.join(HOME, '.jdbookmarks.json')
 
 
 def parse_args(args):
-    "Parse list/tuple of arguments with argparse module"
+    """Parse list/tuple of arguments with argparse module
+
+    - **Parameters** and **returns**::
+        :param list args: arguments to be parsed
+        :returns namespace: parsed arguments
+    """
     parser = argparse.ArgumentParser(description='jumpdir')
     subparsers = parser.add_subparsers(help='sub-command help', dest='commands')
 
