@@ -6,7 +6,17 @@ from collections import defaultdict
 
 
 class Directories:
-    "Recursivley creates and stores a dict of directory names and a list of corresponding paths"
+    """Used to build dictionary of directory names and corresponding paths
+
+    Recursivley creates and stores a dict of directory names and a list of
+    corresponding paths below a given root directory.
+
+    - **parameters** and  **instance variables**::
+
+        :param str base_dir : path to root directory
+        :ivar defaultdict dirs: {str directory name: list paths} dictionary
+            of directory names and corresponding paths
+    """
 
     def __init__(self, base_dir):
         self.base_dir = base_dir # Top level directory to start from
@@ -20,7 +30,12 @@ class Directories:
         return iter(self.dirs)
 
     def dict_builder(self, base_dir):
-        "Walks through base_dir and populates dirs defaultdict"
+        """Walks through base_dir and populates instance's  dirs defaultdict
+
+        - **parameters** and **returns**::
+            :param str base_dir: path to root directory
+            :returns None:
+        """
         for f in os.listdir(base_dir):
             try:
                 # Python2
@@ -38,5 +53,11 @@ class Directories:
                 self.dict_builder(fpath)
 
     def shallowest_path_to(self, dname):
-        "Returns the shallowest path from corresponding paths in dirs dictionary"
+        """Returns the shallowest path from corresponding paths in dirs dictionary
+
+        - **parameters** and **returns**::
+            :param str dname: directory name to retrieve path from
+            :returns str: shallowest path from corresponding list of paths
+        """
         return sorted(self.dirs[dname], key=len)[0]
+
