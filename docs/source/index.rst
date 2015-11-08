@@ -12,7 +12,7 @@ Contents:
    :maxdepth: 2
    
    installation
-
+   source
 
 Indices and tables
 ==================

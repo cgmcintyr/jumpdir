@@ -3,9 +3,23 @@ import os
 
 
 class Bookmarks:
-    "Used to load, save and manipulate bookmark data from a json file"
-    def __init__(self, fname):
-        self.jfile = fname
+    """Used to load, save and manipulate bookmark data from a json file
+
+    - **parameters** and  **instance variables**::
+
+        :param str jfile: path to json file containing bookmark data
+        :ivar str  jfile: copy of jfile paramater value
+        :ivar dict bm_dict: {str name: str path} dictionary of bookmarks in jfile
+
+    -  note::
+        * The keys of the bm_dict of a Bookmarks instance can be iterated over.
+        * The value of an item in the bm_dict can be retrieved using ``self[key]``.
+        * If using any of the above to manipulate the dictionary, changes are not
+          saved to the bookmark jfile until ``self.save_bookmarks()`` is called.
+    """
+    def __init__(self, jfile):
+        self.jfile = jfile
+        self.bm_dict = {}
         self.load_bookmarks()
 
     def __iter__(self):
@@ -15,13 +29,28 @@ class Bookmarks:
         return self.bm_dict[key]
 
     def add_bookmark(self, name, path):
-        "Add a name:path bookmark to bookmark dictionary"
+        """Add a bookmark to given path under name, replacing any previous bookmark
+
+        - **parameters** and **returns**::
+
+            :param str name: name to save the bookmark under in jfile
+            :param str path: absolute path to a directory
+            :returns None:
+
+        """
         self.bm_dict[name] = path
         self.save_bookmarks()
         print("Bookmarked path '{0}' under '{1}'".format(path, name))
 
     def del_bookmark(self, name):
-        "Checks saved bookmarks for matching bookmark and deletes it if it exists"
+        """Checks saved bookmarks for matching bookmark and deletes it if it exists
+
+        - **parameters** and **returns**::
+
+            :param str name: name of bookmark to delete from jfile
+            :returns None:
+
+        """
         if name in self.bm_dict.keys():
             del self.bm_dict[name]
             print("Deleted bookmark '{0}'".format(name))
@@ -30,7 +59,14 @@ class Bookmarks:
         self.save_bookmarks()
 
     def load_bookmarks(self, jfile=None):
-        "Load json data from a file into object's bm_dict"
+        """Load json data from a file into object's bm_dict
+
+        - **parameters** and **returns**::
+
+            :param str jfile: path to bookmark json file to load, defaults to instance's jfile
+            :returns None:
+
+        """
         if jfile is None:
             jfile = self.jfile
 
@@ -42,7 +78,14 @@ class Bookmarks:
                 self.bm_dict = {}
 
     def save_bookmarks(self, jfile=None):
-        "Save dictionary of bookmarks to jfile"
+        """Save dictionary of bookmarks to jfile
+
+        - **parameters** and **returns**::
+
+            :param str jfile: path to bookmark json file to save to, defaults to instance's jfile
+            :returns None:
+
+        """
         if jfile is None:
             jfile = self.jfile
         with open(jfile, "w") as jfile:
@@ -51,7 +94,13 @@ class Bookmarks:
             jfile.write(jdata)
 
     def list_bookmarks(self):
-        "List all bookmarks in bm_dict"
+        """List all bookmarks in bm_dict
+
+        - **parameters** and **returns**::
+
+            :returns None:
+
+        """
         if len(self.bm_dict) == 0:
             print("No bookmarks saved")
         else:
