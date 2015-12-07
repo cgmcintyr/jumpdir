@@ -13,30 +13,29 @@ class MainTest(unittest.TestCase):
     def test_exception_when_intialising_PathFinder_without_arguments(self):
         self.assertRaises(TypeError, PathFinder)
 
-    def test_exception_when_intialising_PathFinder_with_multiple_arguments(self):
+    def test_exception_when_intialising_PathFinder_multiple_arguments(self):
         self.assertRaises(TypeError, PathFinder, 'arg', 'arg2')
 
     def test_check_match_method_returns_true_if_dir_name_matches_string(self):
-        string = 'test'
-        test_dname = "test"
+        string = dirname = 'test'
         pfinder = PathFinder(string)
-        pfinder_result = pfinder.check_match(test_dname)
+        pfinder_result = pfinder.check_match(dirname)
 
         self.assertEqual(pfinder_result, True)
 
     def test_check_match_method_returns_false_if_dir_name_does_not_match_string(self):
         string = 'fails'
-        test_dname = "test"
+        dirname = "test"
         pfinder = PathFinder(string)
-        pfinder_result = pfinder.check_match(test_dname)
+        pfinder_result = pfinder.check_match(dirname)
 
         self.assertEqual(pfinder_result, False)
 
     def test_check_match_method_is_case_insensitive(self):
         string = 'TeSt'
-        test_dname = "test"
+        dirname = "test"
         pfinder = PathFinder(string)
-        pfinder_result = pfinder.check_match(test_dname)
+        pfinder_result = pfinder.check_match(dirname)
 
         self.assertEqual(pfinder_result, True)
 
