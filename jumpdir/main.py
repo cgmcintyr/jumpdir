@@ -11,7 +11,8 @@ import sys
 
 HOME = os.getenv('HOME')
 DATA_DIR = os.path.join(HOME, '.jumpdir')
-BOOKMARKS = os.path.join(DATA_DIR, '.jdbookmarks.json')
+BOOKMARKS  = os.path.join(DATA_DIR, '.jdbookmarks.json')
+CACHE_FILE = os.path.join(DATA_DIR, '.jdcache.json')
 
 if not os.path.isdir(DATA_DIR):
     os.mkdir(DATA_DIR)
@@ -81,8 +82,14 @@ def main(argv=sys.argv[1:]):
         if pfinder.check_match(dname):
             return bm[dname]
 
-    # Search through home folder
-    ddict = Directories(HOME)
+    # Search cached dirs
+    ddict = Directories(HOME, CACHE_FILE)
+    for dname in ddict:
+        if pfinder.check_match(dname):
+            return ddict.shallowest_path_to(dname)
+
+    # Search home folder and update cache
+    ddict.map_directories()
     for dname in ddict:
         if pfinder.check_match(dname):
             return ddict.shallowest_path_to(dname)
