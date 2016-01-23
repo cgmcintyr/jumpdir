@@ -10,12 +10,20 @@ from example_dtrees import example_home_dir
 
 class MainTest(unittest.TestCase):
 
+    def create_mock_cache(path_to_cache_file):
+        with open(path_to_cache_file, 'w') as f:
+            f.write("{}")
+
     @classmethod
     def setUpClass(cls):
         cls.base_path = os.getcwd()
         os.mkdir('Mock_Home')
+
         cls.mock_home_path = os.path.join(cls.base_path, 'Mock_Home')
         create_dtree(example_home_dir, cls.mock_home_path)
+
+        cls.mock_cache = os.path.join(cls.mock_home_path, '.mockcache')
+        cls.create_mock_cache(cls.mock_cache)
 
     @classmethod
     def tearDownClass(cls):
@@ -59,7 +67,8 @@ class MainTest(unittest.TestCase):
 
     def test_search_for_directory_name_containing_spaces(self):
         pfinder = jumpdir.pathfinder.PathFinder('DAVID BOWIE')
-        dlist = jumpdir.directories.Directories(self.mock_home_path)
+        dlist = jumpdir.directories.Directories(self.mock_home_path, self.mock_cache)
+        dlist.map_directories()
 
         self.assertIn(True, [pfinder.check_match(d) for d in dlist])
 

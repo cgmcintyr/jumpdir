@@ -25,13 +25,20 @@ simple_dtree = {
 
 class MainTest(unittest.TestCase):
 
+    def create_mock_cache(path_to_cache_file):
+        with open(path_to_cache_file, 'w') as f:
+            f.write("{}")
+
     @classmethod
     def setUpClass(cls):
         cls.base_path = os.getcwd()
         os.mkdir('mock_dtree')
         cls.test_path = os.path.join(cls.base_path, 'mock_dtree')
         create_dtree(simple_dtree, cls.test_path)
-        cls.directories = Directories(cls.test_path)
+        cls.mock_cache = os.path.join(cls.test_path, '.mockcache')
+        cls.create_mock_cache(cls.mock_cache)
+        cls.directories = Directories(cls.test_path, cls.mock_cache)
+        cls.directories.map_directories()
         try:
             # Python2
             cls.assertCountEqual = cls.assertItemsEqual
