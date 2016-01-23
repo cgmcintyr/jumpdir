@@ -10,7 +10,11 @@ import os
 import sys
 
 HOME = os.getenv('HOME')
-BOOKMARKS = os.path.join(HOME, '.jdbookmarks.json')
+DATA_DIR = os.path.join(HOME, '.jumpdir')
+BOOKMARKS = os.path.join(DATA_DIR, '.jdbookmarks.json')
+
+if not os.path.isdir(DATA_DIR):
+    os.mkdir(DATA_DIR)
 
 
 def parse_args(args):
