@@ -24,11 +24,15 @@ function jd {
 }
 ```
 
+## Description
+
+Jumpdir is case insensitive and searches through your bookmarks and home folder for a directory whose name matches the provided search term (note: jumpdir prioritises bookmarks). Jumpdir will look for directories whose names match your search term and will return the directory with the shortest path. 
+
+The initial `jumpdir search ...` of a home directory can be slow, however your home folder will be cached under `~/.jumpdir/.jdcache.json`, improving lookup times drastically. If jumpdir cannot find a matching bookmark or cached directory, it will search through your actual home directory and update the cache file.
+
 ## Useage
 
-Jumpdir is case insensitive and searches through your home folder for directories whose names directly match the provided search term. It will return the path to the first matching directory, so dealing with duplicate directories can be irksome.
-
-For example, using the following example home directory:
+Using the following example home directory:
 
 ```
 .
@@ -42,8 +46,9 @@ For example, using the following example home directory:
 |   |-- eastclintwood.jpg
 |   '-- yup.mp3
 |-- Other/
-    '-- python/
-        '-- duplicate testing
+    |-- Stuff
+        '-- python/
+            '-- duplicate testing
 ```
 
 Using jumpdir with the jd function works as follows:
@@ -55,10 +60,10 @@ Using jumpdir with the jd function works as follows:
 ~/Devel/django $ jd othe
 Jumpdir could not find a matching directory :(
 ~/Devel/django $ jd python
-~/Devel/python $ # jumpdir will choose the first directory it matches
+~/Devel/python $ # jumpdir will choose the directory with the shortest path
 ```
 
-To edit or view bookmarks use the jumpdir command
+To edit or view bookmarks use the jumpdir command:
 
 ```
 ~ $ jumpdir add bookmarkName -p ~/Devel/python
