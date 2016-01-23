@@ -25,9 +25,9 @@ def parse_args(args):
 
     # jumpdir search ...
     parser_search = subparsers.add_parser('search',
-                                          help='search home directory for a directory matching given search term'
-                                          )
-    parser_search.add_argument('search_term', help='directory name to search for (case insensitive).',)
+            help='search home directory for a directory matching given search term')
+    parser_search.add_argument('search_term',
+            help='directory name to search for (case insensitive).',)
     parser_search.set_defaults(which='search')
 
     # jumpdir add ...
@@ -39,9 +39,7 @@ def parse_args(args):
 
     # jumpdir delete ...
     parser_delete = subparsers.add_parser('delete', help='delete bookmark')
-    parser_delete.add_argument('name',
-                               help='name of bookmark to remove'
-                               )
+    parser_delete.add_argument('name', help='name of bookmark to remove')
 
     # jumpdir list ...
     subparsers.add_parser('list', help='list saved bookmarks')
