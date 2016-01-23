@@ -46,7 +46,7 @@ class MainTest(unittest.TestCase):
         args = jumpdir.main.parse_args(['list'])
         self.assertEqual('list', args.commands)
 
-    def test_main_with_no__args(self):
+    def test_main_with_no_args(self):
         self.assertRaises(ValueError, jumpdir.main.main, argv=[])
 
     def test_parse_args_with_multiple_args(self):

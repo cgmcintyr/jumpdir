@@ -36,21 +36,25 @@ class Directories:
             :param str base_dir: path to root directory
             :returns None:
         """
-        for f in os.listdir(base_dir):
-            try:
-                # Python2
-                f = unicode(f)
-            except NameError:
-                # Python3
-                pass
+        try:
+            for f in os.listdir(base_dir):
+                try:
+                    # Python2
+                    f = unicode(f)
+                except NameError:
+                    # Python3
+                    pass
 
-            if f.startswith('.'):
-                continue
+                if f.startswith('.'):
+                    continue
 
-            fpath = os.path.join(base_dir, f)
-            if os.path.isdir(fpath):
-                self.dirs[f].append(fpath)
-                self.dict_builder(fpath)
+                fpath = os.path.join(base_dir, f)
+                if os.path.isdir(fpath):
+                    self.dirs[f.lower()].append(fpath)
+                    self.dict_builder(fpath)
+        except OSError:
+            # Permission denied
+            return
 
     def shallowest_path_to(self, dname):
         """Returns the shallowest path from corresponding paths in dirs dictionary
@@ -60,4 +64,3 @@ class Directories:
             :returns str: shallowest path from corresponding list of paths
         """
         return sorted(self.dirs[dname], key=len)[0]
-
