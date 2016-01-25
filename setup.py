@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='jumpdir',
-    version='0.3',
+    version='0.5',
     description='A command line tool for quickly navigating your home directory.',
     author='chrsintyre',
     author_email='chrsintyre@gmail.com',
