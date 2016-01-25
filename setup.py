@@ -8,7 +8,6 @@ setup(
     author_email='chrsintyre@gmail.com',
     url='http://github.com/chrsintyre/jumpdir',
     zip_safe=False,
-
     license='MIT',
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -19,9 +18,10 @@ setup(
         'Programming Language :: Python :: 3',
         'Operating System :: POSIX :: Linux',
     ],
-
     keywords='commandline navigation',
-
     packages=['jumpdir'],
     scripts=['scripts/jumpdir', 'scripts/jumpdir-search'],
+    install_requires=[
+        'markdown',
+    ],
 )
