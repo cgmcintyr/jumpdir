@@ -2,7 +2,7 @@
 
 A minimal command line utility for quickly jumping to different directories within your home directory.
 
-![Jumpdir command line demo](images/log.png)
+![Jumpdir demo](images/jumpdir.gif "Jumpdir demo")
 
 
 ## Installation
