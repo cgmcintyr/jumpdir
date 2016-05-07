@@ -4,12 +4,12 @@ import shutil
 
 import jumpdir
 
-from tools import capture_sys_output, create_dtree
-from example_dtrees import example_home_dir
+from tests.tools import capture_sys_output, create_dtree
+from tests.example_dtrees import example_home_dir
 
 
 class MainTest(unittest.TestCase):
-
+    @staticmethod
     def create_mock_cache(path_to_cache_file):
         with open(path_to_cache_file, 'w') as f:
             f.write("{}")
@@ -55,7 +55,8 @@ class MainTest(unittest.TestCase):
         self.assertEqual('list', args.commands)
 
     def test_main_with_no_args(self):
-        self.assertRaises(ValueError, jumpdir.main.main, argv=[])
+        with self.assertRaises(ValueError):
+            jumpdir.main.main([])
 
     def test_parse_args_with_multiple_args(self):
         with self.assertRaises(SystemExit) as cm:

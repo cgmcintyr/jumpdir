@@ -53,12 +53,15 @@ def parse_args(args):
 
 
 def main(argv=sys.argv[1:]):
-    args = parse_args(argv)
+    if len(argv) > 0:
+        args = parse_args(argv)
+    else:
+        raise ValueError("error: no commands given")
     bm = Bookmarks(BOOKMARKS)
 
     # Sub command logic
     if not args.commands:
-        raise ValueError("jumpdir: error: no command given")
+        raise ValueError("error: command not recognised")
     elif args.commands == 'add':
         bm.add_bookmark(args.name, args.path)
         return

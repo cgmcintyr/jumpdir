@@ -24,4 +24,5 @@ setup(
     install_requires=[
         'pychalk',
     ],
+    test_suite='tests',
 )

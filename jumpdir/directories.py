@@ -82,7 +82,7 @@ class Directories:
             cache_file = self.cache_file
         with open(cache_file, "w") as cache_file:
             data = json.dumps(self.dirs, sort_keys=True,
-                               indent=4, separators=(',', ': '))
+                              indent=4, separators=(',', ': '))
             cache_file.write(data)
 
     def load_cache(self, cache_file):
@@ -93,7 +93,6 @@ class Directories:
         """
         if cache_file is None:
             cache_file = self.cache_file
-
         if os.path.exists(cache_file):
             with open(cache_file, 'r') as cache_file:
                 self.dirs = json.loads(cache_file.read())

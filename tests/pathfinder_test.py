@@ -2,7 +2,7 @@ import unittest
 
 from jumpdir.pathfinder import PathFinder
 
-from tools import capture_sys_output
+from tests.tools import capture_sys_output
 
 class MainTest(unittest.TestCase):
 

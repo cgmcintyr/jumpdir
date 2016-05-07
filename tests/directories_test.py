@@ -6,7 +6,7 @@ from collections import defaultdict
 
 from jumpdir.directories import Directories
 
-from tools import create_dtree
+from tests.tools import create_dtree
 
 simple_dtree = {
     'first': {
@@ -24,7 +24,7 @@ simple_dtree = {
 
 
 class MainTest(unittest.TestCase):
-
+    @staticmethod
     def create_mock_cache(path_to_cache_file):
         with open(path_to_cache_file, 'w') as f:
             f.write("{}")
