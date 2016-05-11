@@ -73,10 +73,11 @@ class Bookmarks:
 
         if os.path.exists(jfile):
             with open(jfile, 'r') as jfile:
-                self.bm_dict = json.loads(jfile.read())
+                self.bm_dict = json.load(jfile)
         else:
             with open(jfile, 'w') as jfile:
                 self.bm_dict = {}
+                json.dump(self.bm_dict,  jfile)
 
     def save_bookmarks(self, jfile=None):
         """Save dictionary of bookmarks to jfile
@@ -90,9 +91,8 @@ class Bookmarks:
         if jfile is None:
             jfile = self.jfile
         with open(jfile, "w") as jfile:
-            jdata = json.dumps(self.bm_dict, sort_keys=True,
-                               indent=4, separators=(',', ': '))
-            jfile.write(jdata)
+            json.dump(self.bm_dict, jfile, sort_keys=True,
+                      indent=4, separators=(',', ': '))
 
     def list_bookmarks(self):
         """List all bookmarks in bm_dict
