@@ -51,8 +51,8 @@ def parse_args(args):
     return parser.parse_args(args)
 
 
-def run_search(search_term):
-    if args.search_term == HOME:
+def run_search(search_term, bookmarks):
+    if search_term == HOME:
         return HOME
 
     pfinder = PathFinder(search_term)
@@ -94,7 +94,7 @@ def main(argv=sys.argv[1:]):
         bookmarks.list_bookmarks()
         raise SystemExit
     else:
-        return run_search(args.search_term)
+        return run_search(args.search_term, bookmarks)
 
 
 if __name__ == '__main__':
