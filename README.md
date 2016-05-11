@@ -17,7 +17,7 @@ Then add the following to your .bashrc
 
 ```bash
 function jd {
-    TARGET="$(jumpdir search $@)"
+    TARGET="$(jumpdir-search search $@)"
 
     if [ $TARGET != "None" ]; then
         cd $TARGET
