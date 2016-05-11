@@ -55,24 +55,25 @@ def run_search(search_term, bookmarks):
     if search_term == HOME:
         return HOME
 
-    pfinder = PathFinder(search_term)
+    # Check bookmarks
+    try:
+        return bookmarks[search_term]
+    except KeyError:
+        pass
 
-    # Search through bookmarks
-    for dname in bookmarks:
-        if pfinder.check_match(dname):
-            return bookmarks[dname]
-
-    # Search cached dirs
+    # Check cache
     ddict = Directories(HOME, CACHE_FILE)
-    for dname in ddict:
-        if pfinder.check_match(dname):
-            return ddict.shallowest_path_to(dname)
+    try:
+        return ddict.shallowest_path_to(search_term)
+    except KeyError:
+        pass
 
-    # Search home folder and update cache
+    # Remap home folder and check for match
     ddict.map_directories()
-    for dname in ddict:
-        if pfinder.check_match(dname):
-            return ddict.shallowest_path_to(dname)
+    try:
+        return ddict.shallowest_path_to(search_term)
+    except (KeyError, IndexError):
+        pass
 
 
 def main(argv=sys.argv[1:]):
