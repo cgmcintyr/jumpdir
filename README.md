@@ -1,4 +1,5 @@
 # Jumpdir
+[![Build Status](https://travis-ci.org/cgmcintyr/jumpdir.svg?branch=master)](https://travis-ci.org/cgmcintyr/jumpdir)
 
 A minimal command line utility for quickly jumping to different directories within your home directory.
 
