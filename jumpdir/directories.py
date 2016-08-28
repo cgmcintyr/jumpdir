@@ -1,8 +1,14 @@
 from __future__ import (absolute_import, division,
                         print_function, unicode_literals)
+
 import json
 import os
 from collections import defaultdict
+
+try:
+    from os import scandir
+except ImportError:
+    from scandir import scandir
 
 
 class Directories:
@@ -44,21 +50,16 @@ class Directories:
             :returns None
         """
         try:
-            for f in os.listdir(base_dir):
+            for entry in scandir(base_dir):
+                entry_name = entry.name
                 try:
-                    # Python2
-                    f = unicode(f)
+                    entry_name = unicode(entry.name, 'utf-8')
                 except NameError:
-                    # Python3
                     pass
 
-                if f.startswith('.'):
-                    continue
-
-                fpath = os.path.join(base_dir, f)
-                if os.path.isdir(fpath):
-                    self.dirs[f.lower()].append(fpath)
-                    self.dict_builder(fpath)
+                if entry.is_dir() and not entry_name.startswith('.'):
+                    self.dirs[entry.name.lower()].append(entry.path)
+                    self.dict_builder(entry.path)
         except OSError:
             # Permission denied
             return
